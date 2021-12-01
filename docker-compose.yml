@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  postgres_db:
+    container_name: support_postgres
+    image: postgres
+    command:
+      - psql
+      -
+    environment:
+      POSTGRES_USER: 'max'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'support_bd'
+    volumes:
+      - .postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "8001:5432"
+
+
+  web_app:
+    container_name: support_drf
+    build: .
+    command: python /usr/src/Suport/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/Suport
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+
+  redis:
+    image: redis
+    container_name: support_redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  celery:
+    restart: always
+    container_name: support_celery
+    build: .
+    command: celery -A config worker --loglevel=INFO
+    volumes:
+      - .:/usr/src/Suport
+    links:
+      - redis
+    depends_on:
+      - postgres_db
+      - web_app
+      - redis
