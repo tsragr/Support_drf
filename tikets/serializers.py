@@ -10,10 +10,11 @@ class CreateTicketSerializer(serializers.ModelSerializer):
 
 class ListTicketSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    status = serializers.CharField(source='get_status_display')
 
     class Meta:
         model = models.Ticket
-        fields = ('author', 'text', 'created_at')
+        fields = ('author', 'text', 'status', 'created_at')
 
 
 class AnswerCreateSerializer(serializers.ModelSerializer):
@@ -69,7 +70,8 @@ class AnswerSerializer(serializers.ModelSerializer):
 class TicketDetailSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(slug_field='username', read_only=True)
     answer = AnswerSerializer(read_only=True, many=True)
+    status = serializers.CharField(source='get_status_display')
 
     class Meta:
         model = models.Ticket
-        fields = ('author', 'text', 'created_at', 'answer')
+        fields = ('author', 'text', 'status', 'created_at', 'answer')

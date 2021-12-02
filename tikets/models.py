@@ -17,6 +17,9 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.TextField(choices=CHOICES_OF_STATUS, default='#1')
 
+    def get_status(self, obj):
+        return obj.get_status_display()
+
     def __str__(self):
         return f'{self.author.username} {self.status}'
 
@@ -46,5 +49,3 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return f'{self.user.username} {self.text[:50]}'
-
-
