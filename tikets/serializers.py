@@ -31,7 +31,7 @@ class ChangeStatusSerializer(serializers.ModelSerializer):
 class CreateCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Comment
-        fields = ('answer', 'text',)
+        fields = ('answer', 'parent', 'text',)
 
 
 class RecursiveSerializer(serializers.Serializer):
@@ -54,7 +54,7 @@ class CommentsListSerializer(serializers.ModelSerializer):
     class Meta:
         list_serializer_class = FilterReviewListSerializer
         model = models.Comment
-        fields = ('id', 'children', 'user', 'text')
+        fields = ('id', 'user', 'text', 'children')
 
 
 class AnswerSerializer(serializers.ModelSerializer):

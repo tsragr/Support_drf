@@ -65,7 +65,7 @@ class CreateAnswerViewSet(viewsets.GenericViewSet,
     Create answer on ticket -> only admin user
     """
     queryset = models.Answer.objects.all()
-    serializer_class = serializers.CreateCommentSerializer
+    serializer_class = serializers.AnswerCreateSerializer
 
     permission_classes = [permissions.IsAdminUser]
 
