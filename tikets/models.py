@@ -1,16 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
+from tikets.choices import Status
 
 
 class Ticket(models.Model):
     """
     Ticket's model
     """
-    class Status(models.TextChoices):
-        active = '#1', 'active'
-        done = '#2', 'done'
-        freeze = '#3', 'freeze'
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tickets')
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
