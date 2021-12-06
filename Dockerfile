@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /usr/src/Suport
 
-COPY requirements.txt /usr/src/Suport/requirements.txt
+COPY ./requirements.txt /usr/src/Suport/requirements.txt
 RUN pip install -r /usr/src/Suport/requirements.txt
 
 COPY . .
