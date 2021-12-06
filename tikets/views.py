@@ -5,9 +5,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from . import models
-from . import serializers
-from . import filters
+from tikets import models
+from tikets import serializers
+from tikets import filters
 
 
 class CreateListRetrieveUpdateTicketViewSet(viewsets.GenericViewSet,
@@ -47,16 +47,7 @@ class CreateListRetrieveUpdateTicketViewSet(viewsets.GenericViewSet,
     def perform_create(self, serializer):
         serializer.validated_data['author'] = self.request.user
         serializer.save()
-        send(self.request.user.email)
 
-
-    #  @action(detail=True, methods=['put', 'patch'])
-    #  def change_status(self, request, pk=None):
-    #      instance = get_object_or_404(models.Ticket, pk=pk)
-    #      serializer = serializers.ChangeStatusSerializer(instance=instance, data=request.data)
-    #      if serializer.is_valid():
-    #          serializer.save()
-    #      return Response(serializer.data)
 
 class CreateAnswerViewSet(viewsets.GenericViewSet,
                           mixins.CreateModelMixin,

@@ -1,5 +1,5 @@
 import django_filters
-from . import models
+from tikets import models
 
 
 class TicketFilter(django_filters.FilterSet):

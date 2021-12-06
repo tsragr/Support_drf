@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework import routers
-from . import views
+from tikets import views
 
 router = routers.DefaultRouter()
 router.register('ticket', views.CreateListRetrieveUpdateTicketViewSet, basename='ticket-list_or_create')

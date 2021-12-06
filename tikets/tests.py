@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from django.contrib.auth.models import User
 from knox.models import AuthToken
-from .models import Ticket
+from tikets.models import Ticket
 
 client = APIClient()
 

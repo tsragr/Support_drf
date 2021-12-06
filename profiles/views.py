@@ -2,11 +2,11 @@ from django.shortcuts import render
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
-from .serializers import RegisterSerializer, UserSerializer
+from profiles.serializers import RegisterSerializer, UserSerializer
 from knox.views import LoginView as KnoxLoginView
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from django.contrib.auth import login
-from .tasks import send_welcome_email
+from profiles.tasks import send_welcome_email
 
 
 class RegisterAPI(generics.GenericAPIView):

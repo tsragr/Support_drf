@@ -4,26 +4,28 @@ services:
   postgres_db:
     container_name: support_postgres
     image: postgres
-    environment:
-      POSTGRES_USER: 'max'
-      POSTGRES_PASSWORD: 'password'
-      POSTGRES_DB: 'support_bd'
     volumes:
       - .postgres_data:/var/lib/postgresql/data/
     ports:
       - "8001:5432"
+    env_file:
+      - .env
 
 
   web_app:
     container_name: support_drf
     build: .
-    command: python /usr/src/Suport/manage.py runserver 0.0.0.0:8000
+    command: bash -c "python /usr/src/Suport/manage.py migrate &&
+                      python /usr/src/Suport/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/usr/src/Suport
     ports:
       - "8000:8000"
     depends_on:
       - postgres_db
+    restart: always
+    env_file:
+      - .env
 
   redis:
     image: redis
@@ -45,3 +47,5 @@ services:
       - postgres_db
       - web_app
       - redis
+    env_file:
+      - .env
