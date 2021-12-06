@@ -15,8 +15,7 @@ services:
   web_app:
     container_name: support_drf
     build: .
-    command: bash -c "python /usr/src/Suport/manage.py migrate &&
-                      python /usr/src/Suport/manage.py runserver 0.0.0.0:8000"
+    command: bash /usr/src/Suport/start.sh
     volumes:
       - .:/usr/src/Suport
     ports:
