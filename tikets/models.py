@@ -7,15 +7,14 @@ class Ticket(models.Model):
     """
     Ticket's model
     """
-    CHOICES_OF_STATUS = [
-        ('#1', 'active'),
-        ('#2', 'is done'),
-        ('#3', 'freeze')
-    ]
+    class Status(models.TextChoices):
+        active = '#1', 'active'
+        done = '#2', 'done'
+        freeze = '#3', 'freeze'
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tickets')
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.TextField(choices=CHOICES_OF_STATUS, default='#1')
+    status = models.TextField(choices=Status.choices, default=Status.active)
 
     def get_status(self, obj):
         return obj.get_status_display()
